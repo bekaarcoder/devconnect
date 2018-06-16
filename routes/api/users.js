@@ -42,7 +42,32 @@ router.post('/register', (req, res) => {
 				});
 			});
 		}
-	})
-})
+	});
+});
+
+// @route ---> GET api/users/login
+// @desc  ---> Login user/returning JWT (Json webtoken)
+// @access --> Public
+router.post('/login', (req, res) => {
+	const email = req.body.email;
+	const password = req.body.password;
+
+	// Find user by email
+	User.findOne({email})
+		.then((user) => {
+			if(!user) {
+				return res.status(400).json({email: 'User not Found'});
+			}
+			// check password
+			bcrypt.compare(password, user.password)
+				.then((isMatch) => {
+					if(isMatch) {
+						res.json({msg: 'success'});
+					} else {
+						return res.status(400).json({password: 'password incorrect'});
+					}
+				});
+		});
+});
 
 module.exports = router;
