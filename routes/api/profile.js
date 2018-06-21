@@ -32,6 +32,56 @@ router.get('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 		});
 });
 
+// @router 	GET api/profile/handle/:handle
+// @desc 		Get profileby handle 
+// @access 	Public
+router.get('/handle/:handle', (req, res) => {
+	const errors = {};
+	Profile.findOne({handle: req.params.handle})
+		.populate('user', ['name', 'avatar'])
+		.then((profile) => {
+			if(!profile) {
+				errors.noProfile = "No Profile found";
+				res.status(404).json(errors);
+			}
+			res.json(profile);
+		}).catch((err) => {
+			res.status(400).json(err);
+		});
+});
+
+// @router 	GET api/user/:user_id
+// @desc 		Get profile by user_id 
+// @access 	Public
+router.get('/user/:user_id', (req, res) => {
+	const errors = {};
+	Profile.findOne({user: req.params.user_id})
+		.populate('user', ['name', 'avatar'])
+		.then((profile) => {
+			if(!profile) {
+				errors.noProfile = "No Profile found";
+				res.status(404).json(errors);
+			}
+			res.json(profile);
+		}).catch((err) => {
+			res.status(400).json(err);
+		});
+});
+
+// @router 	GET api/profile/all
+// @desc 		Get all the profiles
+// @access 	Public
+router.get('/all', (req, res) => {
+	Profile.find().populate('user', ['name', 'avatar'])
+		.then((profiles) => {
+			if(!profiles) {
+				errors.profiles = "There are no profiles found";
+				res.status(404).json(errors);
+			}
+			res.json(profiles);
+		}).catch((err) => res.status({profiles: "There are no profiles"}));
+});
+
 // @router 	POST api/profile
 // @desc 		Create or edit user profile
 // @access 	Private
