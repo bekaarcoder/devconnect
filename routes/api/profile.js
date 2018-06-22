@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const validateProfileInput = require('../../validations/profile');
+const validateExperienceInput = require('../../validations/experience');
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -134,6 +135,37 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req, res) => {
 						const newProfile = new Profile(profileFields);
 						newProfile.save().then((profile) => res.json(profile));
 					});
+			}
+		});
+});
+
+// @router 	POST api/profile/experience
+// @desc 		Add experience to profile
+// @access 	Private
+router.post('/experience', passport.authenticate('jwt', {session: false}), (req, res) => {
+	const {errors, isValid} = validateExperienceInput(req.body);
+	// check validation
+	if(!isValid) {
+		return res.status(400).json(errors);
+	}
+
+	Profile.findOne({user: req.user.id})
+		.then(profile => {
+			if(profile){
+				const newExp = {
+					title: req.body.title,
+					company: req.body.company,
+					location: req.body.location,
+					from: req.body.from,
+					to: req.body.to,
+					current: req.body.current,
+					description: req.body.description,
+				};
+				// add to experience array
+				profile.experience.unshift(newExp);
+				profile.save().then((profile) => res.json(profile));
+			} else {
+				res.json({error: "wtf!"})
 			}
 		});
 });
