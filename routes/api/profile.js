@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const validateProfileInput = require('../../validations/profile');
 const validateExperienceInput = require('../../validations/experience');
+const validateEducationInput = require('../../validations/education');
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -169,5 +170,33 @@ router.post('/experience', passport.authenticate('jwt', {session: false}), (req,
 			}
 		});
 });
+
+// @router 	POST api/profile/education
+// @desc 		Add education to profile
+// @access 	Private
+router.post('/education', passport.authenticate('jwt', {session: false}), (req, res) => {
+	const {errors, isValid} = validateEducationInput(req.body);
+	// check validation
+	if(!isValid) {
+		return res.status(400).json(errors);
+	}
+
+	Profile.findOne({user: req.user.id})
+		.then((profile) => {
+			if(profile) {
+				const newEdu = {
+					title: req.body.title,
+					degree: req.body.degree,
+					field: req.body.field,
+					from: req.body.from,
+					to: req.body.to,
+					current: req.body.current
+				};
+				// add to education array
+				profile.education.unshift(newEdu);
+				profile.save().then((profile) => res.json(profile));
+			}
+		})
+})
 
 module.exports = router;
