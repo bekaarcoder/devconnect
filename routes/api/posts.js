@@ -69,4 +69,28 @@ router.delete('/:post_id', passport.authenticate('jwt', {session: false}), (req,
 		// });
 });
 
+// @route 	POST api/posts/like/:post_id
+// @desc 	  Like and unlike post
+// @access  Private
+router.post('/like/:post_id', passport.authenticate('jwt', {session: false}), (req, res) => {
+	Post.findById(req.params.post_id)
+		.then(post => {
+			if(post.likes.length > 0) {
+				let userHasLiked = post.likes.filter(like => like.user.toString() === req.user.id);
+				if(userHasLiked.length > 0) {
+					const removeIndex = post.likes.map(like => like.user.toString()).indexOf(req.user.id);
+					post.likes.splice(removeIndex, 1);
+					// save
+					post.save().then(post => res.json(post));
+					return false;
+				}
+			}
+			let userLiked = {
+				user: req.user.id
+			};
+			post.likes.push(userLiked);
+			post.save().then(post => res.json(post));
+		}).catch(err => res.status(404).json({err: "Not found"}));
+});
+
 module.exports = router;
