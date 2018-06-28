@@ -93,4 +93,51 @@ router.post('/like/:post_id', passport.authenticate('jwt', {session: false}), (r
 		}).catch(err => res.status(404).json({err: "Not found"}));
 });
 
+// @route 	POST api/posts/comment/:id
+// @desc 	  Add comment to post
+// @access  Private
+router.post('/comment/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+	const {errors, isValid} = validatePostInput(req.body);
+	// check validation
+	if(!isValid) {
+		return res.status(404).json(errors);
+	}
+
+	Post.findById(req.params.id)
+		.then(post => {
+			const newComment = {
+				text: req.body.text,
+				name: req.body.name,
+				avatar: req.body.avatar,
+				user: req.user.id
+			};
+
+			// add to comments array
+			post.comments.unshift(newComment);
+			// save
+			post.save().then(post => res.json(post));
+		}).catch(err => res.status(400).json({err: "No Post found"}));
+});
+
+// @route 	DELETE api/posts/comment/:id/:comment_id
+// @desc 	  Delete comment from a post
+// @access  Private
+router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', {session: false}), (req, res) => {
+	Post.findById(req.params.id)
+		.then(post => {
+			if(post.comments.length > 0) {
+				const removeIndex = post.comments.map(comment => comment.id.toString()).indexOf(req.params.comment_id);
+				// remove from array
+				if(removeIndex > -1) {
+					post.comments.splice(removeIndex, 1);
+					// save
+					post.save().then(post => res.json(post));
+				} else {
+					res.status(404).json({err: "No comment to delete"});
+				}
+			}
+			res.status(404).json({err: "No comment to delete"});
+		}).catch(err => res.status(404).json({err: "No posts found"}));
+});
+
 module.exports = router;
