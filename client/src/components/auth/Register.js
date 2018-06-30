@@ -32,7 +32,9 @@ class Register extends Component {
 
 		axios.post('/api/users/register', newUser)
 			.then(res => console.log(res.data))
-			.catch(err => console.log(err.response.data));
+			.catch(err => this.setState({
+				errors: err.response.data
+			}));
 	}
 
 	render() {
@@ -45,17 +47,59 @@ class Register extends Component {
 						<div className="card-body">
 							<form onSubmit={this.onSubmit}>
 								<div className="form-group">
-									<input type="text" className="form-control" name="name" placeholder="Name" value={this.state.name} onChange={this.onChange} autoComplete="nope" />
+									<input
+										type="text"
+										className={"form-control " + (this.state.errors.name && "is-invalid")}
+										name="name"
+										placeholder="Name"
+										value={this.state.name}
+										onChange={this.onChange}
+										autoComplete="nope"
+									/>
+									<div className="invalid-feedback">
+										{this.state.errors.name}
+									</div>
 								</div>
 								<div className="form-group">
-									<input type="text" className="form-control" name="email" placeholder="Email Address" value={this.state.email} onChange={this.onChange} autoComplete="nope" />
+									<input
+										type="text"
+										className={"form-control " + (this.state.errors.email && "is-invalid")}
+										name="email"
+										placeholder="Email Address"
+										value={this.state.email}
+										onChange={this.onChange}
+										autoComplete="nope"
+									/>
+									<div className="invalid-feedback">
+										{this.state.errors.email}
+									</div>
 									<small className="form-text text-muted">Use a gravatar email if you want a profile image.</small>
 								</div>
 								<div className="form-group">
-									<input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password}onChange={this.onChange} />
+									<input
+										type="password"
+										className={"form-control " + (this.state.errors.password && "is-invalid")}
+										name="password"
+										placeholder="Password"
+										value={this.state.password}
+										onChange={this.onChange}
+									/>
+									<div className="invalid-feedback">
+										{this.state.errors.password}
+									</div>
 								</div>
 								<div className="form-group">
-									<input type="password" className="form-control" name="password2" placeholder="Confirm Password" value={this.state.password2} onChange={this.onChange} />
+									<input
+										type="password"
+										className={"form-control " + (this.state.errors.password2 && "is-invalid")}
+										name="password2"
+										placeholder="Confirm Password"
+										value={this.state.password2}
+										onChange={this.onChange}
+									/>
+									<div className="invalid-feedback">
+										{this.state.errors.password2}
+									</div>
 								</div>
 								<div className="text-center">
 									<input type="submit" className="btn btn-info" value="SignUp" />
