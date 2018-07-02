@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import {connect} from 'react-redux';
+import {registerUser} from '../../actions/authAction';
 
 class Register extends Component {
 	constructor() {
@@ -30,14 +32,18 @@ class Register extends Component {
 			password2: this.state.password2
 		};
 
-		axios.post('/api/users/register', newUser)
+		this.props.registerUser(newUser);
+		/*axios.post('/api/users/register', newUser)
 			.then(res => console.log(res.data))
 			.catch(err => this.setState({
 				errors: err.response.data
-			}));
+			}));*/
 	}
 
 	render() {
+
+		const {user} = this.props.auth;
+
 		return (
 			<div className="row justify-content-center">
 				<div className="col-md-6">
@@ -113,4 +119,8 @@ class Register extends Component {
 	}
 }
 
-export default Register;
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
+
+export default connect(mapStateToProps, {registerUser})(Register);
