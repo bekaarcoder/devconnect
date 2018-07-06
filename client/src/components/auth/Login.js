@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loginUser} from '../../actions/authAction';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Login extends Component {
 	constructor() {
@@ -59,7 +60,7 @@ class Login extends Component {
 					<div className="card">
 						<div className="card-body">
 							<form onSubmit={this.onSubmit}>
-								<div className="form-group">
+								{/*<div className="form-group">
 									<input
 										type="text"
 										className={"form-control " + (errors.email && "is-invalid")}
@@ -72,21 +73,25 @@ class Login extends Component {
 									<div className="invalid-feedback">
 										{errors.email}
 									</div>
-								</div>
-								<div className="form-group">
-									<input
-										type="password"
-										className={"form-control " + (errors.password && "is-invalid")}
-										name="password"
-										placeholder="Password"
-										value={this.state.password}
-										onChange={this.onChange}
-										autoComplete="new-password"
-									/>
-									<div className="invalid-feedback">
-										{errors.password}
-									</div>
-								</div>
+								</div>*/}
+								<TextFieldGroup
+									type="text"
+									name="email"
+									placeholder="Email Address"
+									value={this.state.email}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.email}
+								/>
+								<TextFieldGroup
+									type="password"
+									name="password"
+									placeholder="Password"
+									value={this.state.password}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.password}
+								/>
 								<div className="text-center">
 									<input type="submit" className="btn btn-info" value="Login" />
 								</div>
