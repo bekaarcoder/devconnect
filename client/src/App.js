@@ -10,6 +10,9 @@ import Navbar from './components/layout/Navbar';
 import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
+import Dashboard from './components/dashboard/Dashboard';
+import {logoutUser} from './actions/authAction';
+import {clearProfile} from './actions/profileAction';
 import './App.css';
 
 // check for token
@@ -20,6 +23,14 @@ if(localStorage.jwtToken) {
   const decoded = jwt_decode(localStorage.jwtToken);
   // set user and isAuthenticated
   store.dispatch(setCurrentUser(decoded));
+
+  // check for expired token
+  const currentTime = Date.now();
+  if(decoded.exp < currentTime) {
+    store.dispatch(logoutUser());
+    store.dispatch(clearProfile());
+    window.location.href('/login');
+  }
 }
 
 class App extends Component {
@@ -33,6 +44,7 @@ class App extends Component {
             <div className="container">
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/dashboard" component={Dashboard} />
             </div>
           </div>
         </BrowserRouter>

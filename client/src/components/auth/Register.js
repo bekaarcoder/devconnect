@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {registerUser} from '../../actions/authAction';
+import TextFieldGroup from '../common/TextFieldGroup';
 
 class Register extends Component {
 	constructor() {
@@ -57,6 +58,7 @@ class Register extends Component {
 	}
 
 	render() {
+		const {errors} = this.state
 		return (
 			<div className="row justify-content-center">
 				<div className="col-md-6">
@@ -65,61 +67,44 @@ class Register extends Component {
 					<div className="card">
 						<div className="card-body">
 							<form onSubmit={this.onSubmit}>
-								<div className="form-group">
-									<input
-										type="text"
-										className={"form-control " + (this.state.errors.name && "is-invalid")}
-										name="name"
-										placeholder="Name"
-										value={this.state.name}
-										onChange={this.onChange}
-										autoComplete="nope"
-									/>
-									<div className="invalid-feedback">
-										{this.state.errors.name}
-									</div>
-								</div>
-								<div className="form-group">
-									<input
-										type="text"
-										className={"form-control " + (this.state.errors.email && "is-invalid")}
-										name="email"
-										placeholder="Email Address"
-										value={this.state.email}
-										onChange={this.onChange}
-										autoComplete="nope"
-									/>
-									<div className="invalid-feedback">
-										{this.state.errors.email}
-									</div>
-									<small className="form-text text-muted">Use a gravatar email if you want a profile image.</small>
-								</div>
-								<div className="form-group">
-									<input
-										type="password"
-										className={"form-control " + (this.state.errors.password && "is-invalid")}
-										name="password"
-										placeholder="Password"
-										value={this.state.password}
-										onChange={this.onChange}
-									/>
-									<div className="invalid-feedback">
-										{this.state.errors.password}
-									</div>
-								</div>
-								<div className="form-group">
-									<input
-										type="password"
-										className={"form-control " + (this.state.errors.password2 && "is-invalid")}
-										name="password2"
-										placeholder="Confirm Password"
-										value={this.state.password2}
-										onChange={this.onChange}
-									/>
-									<div className="invalid-feedback">
-										{this.state.errors.password2}
-									</div>
-								</div>
+								<TextFieldGroup
+									type="text"
+									name="name"
+									placeholder="Name"
+									value={this.state.name}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.name}
+								/>
+								<TextFieldGroup
+									type="text"
+									name="email"
+									placeholder="Email Address"
+									value={this.state.email}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.email}
+									info="Use a gravatar email if you want a profile image."
+								/>
+								<TextFieldGroup
+									type="password"
+									name="password"
+									placeholder="Password"
+									value={this.state.password}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.password}
+									info="Password must be atleast 6 characters"
+								/>
+								<TextFieldGroup
+									type="password"
+									name="password2"
+									placeholder="Confirm Password"
+									value={this.state.password2}
+									onChange={this.onChange}
+									autoComplete="nope"
+									error={errors.password2}
+								/>
 								<div className="text-center">
 									<input type="submit" className="btn btn-info" value="SignUp" />
 								</div>
