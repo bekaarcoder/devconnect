@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {getUserProfile} from '../../actions/profileAction';
+import isEmpty from '../../validations/is-empty';
+import {Link} from 'react-router-dom';
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -16,10 +18,22 @@ class Dashboard extends Component {
 		if(profile === null || loading) {
 			dashboardContent = <h4>Loading...</h4>
 		} else {
-			dashboardContent = <h1>Your Profile</h1>
+			dashboardContent = (
+				isEmpty(profile) ?
+					<div>
+						<h4 className="lead text-muted">Welcome {user.name}</h4>
+						<p className="lead">You dont have any profile created. You can create now.</p>
+						<Link className="btn btn-info" to="/create-profile">Create Profile</Link>
+					</div>
+					:
+					<div>
+						<h4>Your Profile</h4>
+					</div>
+			)
 		}
+
 		return (
-			<div>
+			<div className="mt-3">
 				<h1>Dashboard</h1>
 				{dashboardContent}
 			</div>

@@ -10,7 +10,6 @@ class Navbar extends Component {
 		e.preventDefault();
 		this.props.logoutUser();
 		this.props.clearProfile();
-		window.location.href = '/login'
 	}
 	render() {
 		const {isAuthenticated, user} = this.props.auth;
