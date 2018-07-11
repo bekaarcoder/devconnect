@@ -13,6 +13,7 @@ import Landing from './components/layout/Landing';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard';
+import CreateProfile from './components/create-profile/CreateProfile';
 import {logoutUser} from './actions/authAction';
 import {clearProfile} from './actions/profileAction';
 import './App.css';
@@ -48,6 +49,9 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Switch>
                 <PrivateRoute path="/dashboard" component={Dashboard} />
+              </Switch>
+              <Switch>
+                <PrivateRoute path="/create-profile" component={CreateProfile} />
               </Switch>
             </div>
           </div>
