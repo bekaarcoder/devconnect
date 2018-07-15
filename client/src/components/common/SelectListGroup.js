@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 const SelectListGroup = ({
 	name,
-	value,
 	error,
 	info,
   onChange,
@@ -17,7 +16,6 @@ const SelectListGroup = ({
 			<select
 				className={"form-control " + (error && "is-invalid")}
 				name={name}
-				value={value}
 				onChange={onChange}
 			>
 			{selectOptions}
@@ -32,7 +30,6 @@ const SelectListGroup = ({
 
 SelectListGroup.propTypes = {
 	name: PropTypes.string.isRequired,
-	value: PropTypes.string.isRequired,
 	info: PropTypes.string,
 	error: PropTypes.string,
   onChange: PropTypes.func.isRequired,

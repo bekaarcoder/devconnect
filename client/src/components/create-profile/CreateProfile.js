@@ -5,6 +5,7 @@ import TextFieldGroup from '../common/TextFieldGroup';
 import TextareaFieldGroup from '../common/TextareaFieldGroup';
 import InputGroup from '../common/InputGroup';
 import SelectListGroup from '../common/SelectListGroup';
+import {createNewProfile} from '../../actions/profileAction';
 
 class CreateProfile extends Component {
 
@@ -32,9 +33,32 @@ class CreateProfile extends Component {
 		this.showNetworkFields = this.showNetworkFields.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.errors){
+			this.setState({
+				errors: nextProps.errors
+			});
+		}
+	}
+
 	onSubmit(e) {
 		e.preventDefault();
-		
+		const newProfile = {
+			handle: this.state.handle,
+			company: this.state.company,
+			website: this.state.website,
+			location: this.state.location,
+			status: this.state.status,
+			skills: this.state.skills,
+			github: this.state.github,
+			bio: this.state.bio,
+			facebook: this.state.facebook,
+			twitter: this.state.twitter,
+			instagram: this.state.instagram,
+			linkedin: this.state.linkedin
+		};
+		console.log(newProfile);
+		this.props.createNewProfile(newProfile);
 	}
 
 	onChange(e) {
@@ -123,6 +147,7 @@ class CreateProfile extends Component {
 								name="status"
 								options={options}
 								error={errors.status}
+								onChange={this.onChange}
 								info="Give us an idea about your career status."
 							/>
 							<TextFieldGroup
@@ -205,6 +230,4 @@ const mapStateToProps = (state) => ({
 	errors: state.error
 });
 
-export default connect(
-	mapStateToProps
-)(CreateProfile)
+export default connect(mapStateToProps, {createNewProfile})(CreateProfile);
