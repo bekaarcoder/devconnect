@@ -29,9 +29,9 @@ export const clearProfile = () => {
 };
 
 // create profile
-export const createNewProfile = (userData) => dispatch => {
+export const createNewProfile = (userData, history) => dispatch => {
 	axios.post('/api/profile', userData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
-		.then(res => console.log(res.data))
+		.then(res => history.push('/dashboard'))
 		.catch(err => dispatch({
 			type: GET_ERRORS,
 			payload: err.response.data

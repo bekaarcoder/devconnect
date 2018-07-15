@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextareaFieldGroup from '../common/TextareaFieldGroup';
@@ -58,7 +59,7 @@ class CreateProfile extends Component {
 			linkedin: this.state.linkedin
 		};
 		console.log(newProfile);
-		this.props.createNewProfile(newProfile);
+		this.props.createNewProfile(newProfile, this.props.history);
 	}
 
 	onChange(e) {
@@ -205,7 +206,7 @@ class CreateProfile extends Component {
 								info="Put the url of your github profile"
 							/>
 							<div className="mb-3 mt-2">
-								<button onClick={this.showNetworkFields} className="btn btn-info btn-sm">Add Social Network Links</button>
+								<button type="button" onClick={this.showNetworkFields} className="btn btn-info btn-sm">Add Social Network Links</button>
 								<span className="text-muted small ml-3">Optional</span>
 							</div>
 							{socialInputs}
@@ -230,4 +231,4 @@ const mapStateToProps = (state) => ({
 	errors: state.error
 });
 
-export default connect(mapStateToProps, {createNewProfile})(CreateProfile);
+export default connect(mapStateToProps, {createNewProfile})(withRouter(CreateProfile));
