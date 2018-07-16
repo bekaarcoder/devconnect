@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getUserProfile} from '../../actions/profileAction';
+import {getUserProfile, deleteProfile} from '../../actions/profileAction';
 import isEmpty from '../../validations/is-empty';
 import {Link} from 'react-router-dom';
 import ProfileActions from './ProfileActions';
@@ -12,8 +12,8 @@ class Dashboard extends Component {
 	}
 
 	onDeleteClick(e) {
-		// this.props.deleteProfile();
-		console.log("Delete");
+		this.props.deleteProfile();
+		// console.log("Delete");
 	}
 
 	render() {
@@ -62,4 +62,4 @@ const mapStateToProps = (state) => ({
 	auth: state.auth
 });
 
-export default connect(mapStateToProps, {getUserProfile})(Dashboard);
+export default connect(mapStateToProps, {getUserProfile, deleteProfile})(Dashboard);

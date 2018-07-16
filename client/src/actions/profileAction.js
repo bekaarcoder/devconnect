@@ -41,11 +41,14 @@ export const createNewProfile = (userData, history) => dispatch => {
 // Delete Profile
 export const deleteProfile = () => dispatch => {
 	if(window.confirm("Are you sure you want to delete your profile?")) {
-		axios.delete('/api/profile')
+		axios.delete('/api/profile', {headers: {"Authorization": localStorage.getItem('jwtToken')}})
 			.then(res => dispatch({
 				type: SET_CURRENT_USER,
 				payload: {}
 			}))
+			.catch(err => dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			}));
 	}
-
 }
