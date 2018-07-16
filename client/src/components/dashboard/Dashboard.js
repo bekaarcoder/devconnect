@@ -4,10 +4,16 @@ import PropTypes from 'prop-types';
 import {getUserProfile} from '../../actions/profileAction';
 import isEmpty from '../../validations/is-empty';
 import {Link} from 'react-router-dom';
+import ProfileActions from './ProfileActions';
 
 class Dashboard extends Component {
 	componentDidMount() {
 		this.props.getUserProfile();
+	}
+
+	onDeleteClick(e) {
+		// this.props.deleteProfile();
+		console.log("Delete");
 	}
 
 	render() {
@@ -27,7 +33,11 @@ class Dashboard extends Component {
 					</div>
 					:
 					<div>
-						<h4>Your Profile</h4>
+						<h4 className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></h4>
+						<ProfileActions />
+						<div>
+							<button className="btn btn-danger" type="button" onClick={this.onDeleteClick.bind(this)}>Delete My Account</button>
+						</div>
 					</div>
 			)
 		}

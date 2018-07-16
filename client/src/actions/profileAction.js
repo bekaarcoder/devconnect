@@ -1,4 +1,4 @@
-import {GET_PROFILE, LOAD_PROFILE, CLEAR_CURRENT_PROFILE, GET_ERRORS} from './types.js';
+import {GET_PROFILE, LOAD_PROFILE, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER} from './types.js';
 import axios from 'axios';
 
 // get user profile
@@ -36,4 +36,16 @@ export const createNewProfile = (userData, history) => dispatch => {
 			type: GET_ERRORS,
 			payload: err.response.data
 		}));
+}
+
+// Delete Profile
+export const deleteProfile = () => dispatch => {
+	if(window.confirm("Are you sure you want to delete your profile?")) {
+		axios.delete('/api/profile')
+			.then(res => dispatch({
+				type: SET_CURRENT_USER,
+				payload: {}
+			}))
+	}
+
 }
