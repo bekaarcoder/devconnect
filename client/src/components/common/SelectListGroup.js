@@ -5,7 +5,8 @@ const SelectListGroup = ({
 	name,
 	error,
 	info,
-  onChange,
+	onChange,
+	value,
   options,
 }) => {
   const selectOptions = options.map(option => (
@@ -17,6 +18,7 @@ const SelectListGroup = ({
 				className={"form-control " + (error && "is-invalid")}
 				name={name}
 				onChange={onChange}
+				value={value}
 			>
 			{selectOptions}
       </select>
@@ -33,7 +35,8 @@ SelectListGroup.propTypes = {
 	info: PropTypes.string,
 	error: PropTypes.string,
   onChange: PropTypes.func.isRequired,
-  options: PropTypes.array.isRequired,
+	options: PropTypes.array.isRequired,
+	value: PropTypes.string.isRequired,
 	autoComplete: PropTypes.string
 };
 

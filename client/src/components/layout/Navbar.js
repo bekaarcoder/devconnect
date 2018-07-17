@@ -27,6 +27,9 @@ class Navbar extends Component {
 
 		const authLinks = (
 			<ul className="navbar-nav my-2 my-lg-0">
+				<li className="nav-item">
+	        <Link className="nav-link" to="/dashboard">Dashboard</Link>
+	      </li>
 	      <li className="nav-item">
 	        <a href="" className="nav-link" onClick={this.onLogout.bind(this)}>
 	        	<img
