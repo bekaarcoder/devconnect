@@ -62,3 +62,13 @@ export const addExperience = (userData, history) => dispatch => {
 			payload: err.response.data
 		}));
 }
+
+// add education
+export const addEducation = (userData, history) => dispatch => {
+	axios.post('/api/profile/education', userData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+		.then(res => history.push('/dashboard'))
+		.catch(err => dispatch({
+			type: GET_ERRORS,
+			payload: err.response.data
+		}));
+}

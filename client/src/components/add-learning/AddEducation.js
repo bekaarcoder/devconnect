@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
+import {addEducation} from '../../actions/profileAction';
 
 class AddEducation extends Component {
 
@@ -23,8 +24,25 @@ class AddEducation extends Component {
     this.onCheck = this.onCheck.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
+    const newEdu = {
+      title: this.state.title,
+      degree: this.state.degree,
+      field: this.state.field,
+      from: this.state.from,
+      to: this.state.to,
+      current: this.state.current
+    };
+    this.props.addEducation(newEdu, this.props.history);
   }
 
   onChange(e) {
@@ -100,7 +118,7 @@ class AddEducation extends Component {
                 <label htmlFor="current" className="form-check-label">Currently Learning</label>
               </div>
               <div className="text-center">
-                <input type="button" className="btn btn-primary" value="Add Education" />
+                <input type="submit" className="btn btn-primary" value="Add Education" />
               </div>
             </form>
           </div>
@@ -112,7 +130,8 @@ class AddEducation extends Component {
 
 AddEducation.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  addEducation: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -120,4 +139,4 @@ const mapStateToProps = state => ({
   errors: state.error
 });
 
-export default connect(mapStateToProps, {})(withRouter(AddEducation));
+export default connect(mapStateToProps, {addEducation})(withRouter(AddEducation));
