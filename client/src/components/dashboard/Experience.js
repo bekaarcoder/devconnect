@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import withRouter from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
+import Moment from 'react-moment';
 
 class Experience extends Component {
   render() {
@@ -8,7 +9,10 @@ class Experience extends Component {
       <tr key={exp._id}>
         <td>{exp.company}</td>
         <td>{exp.title}</td>
-        <td>{exp.from} - {exp.to}</td>
+        <td>
+          <Moment format="Do MMM, YYYY">{exp.from}</Moment> to{' '} 
+          {exp.current ? 'Present' : <Moment format="Do MMM, YYYY">{exp.to}</Moment>}
+        </td>
         <td>{exp.location}</td>
         <td><button className="btn btn-sm btn-danger">Delete</button></td>
       </tr>
@@ -28,7 +32,9 @@ class Experience extends Component {
                 <th scope="col"></th>
               </tr>
             </thead>
+            <tbody>
             {experiences}
+            </tbody>
           </table>
         </div>
       </div>

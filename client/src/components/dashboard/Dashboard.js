@@ -6,6 +6,7 @@ import isEmpty from '../../validations/is-empty';
 import {Link} from 'react-router-dom';
 import ProfileActions from './ProfileActions';
 import Experience from './Experience';
+import Education from './Education';
 
 class Dashboard extends Component {
 	componentDidMount() {
@@ -37,7 +38,8 @@ class Dashboard extends Component {
 						<h4 className="lead text-muted">Welcome <Link to={`/profile/${profile.handle}`}>{user.name}</Link></h4>
 						<ProfileActions />
 						<Experience experience={profile.experience} />
-						<div>
+						<Education education={profile.education} />
+						<div className="mb-4">
 							<button className="btn btn-danger" type="button" onClick={this.onDeleteClick.bind(this)}>Delete My Account</button>
 						</div>
 					</div>
