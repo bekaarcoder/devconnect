@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import TextFieldGroup from '../common/TextFieldGroup';
 import TextareaFieldGroup from '../common/TextareaFieldGroup';
+import {addExperience} from '../../actions/profileAction';
 
  class AddExperience extends Component {
   
@@ -26,9 +27,25 @@ import TextareaFieldGroup from '../common/TextareaFieldGroup';
     this.onCheck = this.onCheck.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
   onSubmit(e) {
     e.preventDefault();
-    console.log(this.state);
+    const newExp = {
+      title: this.state.title,
+      company: this.state.company,
+      location: this.state.location,
+      from: this.state.from,
+      to: this.state.to,
+      current: this.state.current
+    }
+    this.props.addExperience(newExp, this.props.history);
   }
 
   onChange(e) {
@@ -111,7 +128,7 @@ import TextareaFieldGroup from '../common/TextareaFieldGroup';
                 onChange={this.onChange}
               />
               <div className="text-center">
-                <input className="btn btn-primary" type="button" value="Add Experience" />
+                <input className="btn btn-primary" type="submit" value="Add Experience" />
               </div>
             </form>
           </div>
@@ -123,7 +140,8 @@ import TextareaFieldGroup from '../common/TextareaFieldGroup';
 
 AddExperience.propTypes = {
   profile: PropTypes.object.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  addExperience: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -131,4 +149,4 @@ const mapStateToProps = (state) => ({
   errors: state.error
 });
 
-export default connect(mapStateToProps, {})(withRouter(AddExperience));
+export default connect(mapStateToProps, {addExperience})(withRouter(AddExperience));
