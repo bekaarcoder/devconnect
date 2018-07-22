@@ -87,3 +87,18 @@ export const addEducation = (userData, history) => dispatch => {
 			payload: err.response.data
 		}));
 }
+
+// delete education
+export const deleteEducation = (edu_id) => dispatch => {
+	if(window.confirm("Are you sure you want to delete this education?")) {
+		axios.delete(`/api/profile/education/${edu_id}`, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+			.then(res => dispatch({
+				type: GET_PROFILE,
+				payload: res.data
+			}))
+			.catch(err => dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			}));
+	}
+}
