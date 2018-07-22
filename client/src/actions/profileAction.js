@@ -63,6 +63,21 @@ export const addExperience = (userData, history) => dispatch => {
 		}));
 }
 
+// delete experience
+export const deleteExperience = (exp_id) => dispatch => {
+	if(window.confirm("Are you sure you want to delete this experience?")) {
+		axios.delete(`/api/profile/experience/${exp_id}`, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+			.then(res => dispatch({
+				type: GET_PROFILE,
+				payload: res.data
+			}))
+			.catch(err => dispatch({
+				type: GET_ERRORS,
+				payload: err.response.data
+			}));
+	}
+}
+
 // add education
 export const addEducation = (userData, history) => dispatch => {
 	axios.post('/api/profile/education', userData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})

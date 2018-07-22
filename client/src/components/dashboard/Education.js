@@ -6,7 +6,7 @@ import Moment from 'react-moment';
 class Education extends Component {
   render() {
     const educations = this.props.education.map(edu => (
-      <tr>
+      <tr key={edu._id}>
         <td>{edu.title}</td>
         <td>{edu.degree}</td>
         <td>{edu.field}</td>
