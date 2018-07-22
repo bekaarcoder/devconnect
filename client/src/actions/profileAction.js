@@ -1,4 +1,4 @@
-import {GET_PROFILE, LOAD_PROFILE, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER} from './types.js';
+import {GET_PROFILE, LOAD_PROFILE, CLEAR_CURRENT_PROFILE, GET_ERRORS, SET_CURRENT_USER, GET_PROFILES} from './types.js';
 import axios from 'axios';
 
 // get user profile
@@ -13,6 +13,20 @@ export const getUserProfile = () => dispatch => {
 			payload: {}
 		}));
 };
+
+// get all user profiles
+export const getUserProfiles = () => dispatch => {
+	dispatch(setProfileLoader());
+	axios.get('/api/profile/all')
+		.then(res => dispatch({
+			type: GET_PROFILES,
+			payload: res.data
+		}))
+		.catch(err => dispatch({
+			type: GET_ERRORS,
+			payload: err.response.data
+		}));
+}
 
 // profile loading
 export const setProfileLoader = () => {
