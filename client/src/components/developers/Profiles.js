@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from '../../../node_modules/react-router-dom';
 import {getUserProfiles} from '../../actions/profileAction';
+import ProfileItem from './ProfileItem';
 
 class Profiles extends Component {
 
@@ -18,15 +19,19 @@ class Profiles extends Component {
         <p className="text-center lead">Loading Profiles...</p>
       )
     } else {
-      profilesContent = (
-        <p>Display Profiles</p>
-      )
+      profilesContent = profiles.map(profile => (
+        <ProfileItem key={profile._id} profile={profile} />
+      ));
     }
     return (
-      <div className="row mt-4">
-        <div className="col-md-12">
-          <h2 className="text-center">Developers</h2>
-          <p className="text-center lead text-muted">Browse all developers and connect with them</p>
+      <div>
+        <div className="row mt-4">
+          <div className="col-md-12">
+            <h2 className="text-center">Developers</h2>
+            <p className="text-center lead text-muted">Browse all developers and connect with them</p>
+          </div>
+        </div>
+        <div className="row justify-content-around mt-5">
           {profilesContent}
         </div>
       </div>
