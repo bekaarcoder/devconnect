@@ -18,6 +18,7 @@ import EditProfile from './components/edit-profile/EditProfile';
 import AddExperience from './components/add-learning/AddExperience';
 import AddEducation from './components/add-learning/AddEducation';
 import Profiles from './components/developers/Profiles';
+import Profile from './components/profile/Profile';
 import {logoutUser} from './actions/authAction';
 import {clearProfile} from './actions/profileAction';
 import './App.css';
@@ -52,6 +53,7 @@ class App extends Component {
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/profiles" component={Profiles} />
+              <Route path="/profile/:handle" component={Profile} />
               <Switch>
                 <PrivateRoute path="/dashboard" component={Dashboard} />
               </Switch>

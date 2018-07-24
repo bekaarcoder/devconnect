@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
-import isEmpty from '../../validations/is-empty';
+// import isEmpty from '../../validations/is-empty';
 
 class ProfileItem extends Component {
   render() {
@@ -17,8 +17,8 @@ class ProfileItem extends Component {
               <div className="col-md-8">
                 <h2 className="lead">{profile.user.name}</h2>
                 <p className="text-muted">{profile.status}</p>
-                {profile.skills.splice(0, 5).map(skill => (
-                  <span className="badge badge-info mr-2">{skill}</span>
+                {profile.skills.splice(0, 5).map((skill, index) => (
+                  <span className="badge badge-info mr-2" key={index}>{skill}</span>
                 ))}
                 <div className="mt-2">
                   <Link className="btn btn-success btn-sm" to={`/profile/${profile.handle}`}>View Profile</Link>
