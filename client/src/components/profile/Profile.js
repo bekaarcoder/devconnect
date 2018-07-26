@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {getProfileByHandle} from '../../actions/profileAction';
+import ProfileHeader from './ProfileHeader';
 
 class Profile extends Component {
 
@@ -12,10 +13,24 @@ class Profile extends Component {
   }
 
   render() {
-    const {profile} = this.props.profile
+    const {profile, loading} = this.props.profile;
+    let profilePageContent;
+    if(profile === null || loading) {
+      profilePageContent = (
+        <h3 className="text-center lead mt-3">Loading Profile...</h3>
+      );
+    } else {
+      profilePageContent = (
+        <ProfileHeader profile={profile} />
+      )
+    }
+
+
     return (
-      <div>
-        <h2>Profile Page</h2>
+      <div className="row mt-4">
+        <div className="col-md-12">
+          {profilePageContent}
+        </div>
       </div>
     )
   }
