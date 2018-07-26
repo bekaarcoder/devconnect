@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {getProfileByHandle} from '../../actions/profileAction';
 import ProfileHeader from './ProfileHeader';
+import ProfileAbout from './ProfileAbout';
+import ProfileExp from './ProfileExp';
 
 class Profile extends Component {
 
@@ -21,7 +23,11 @@ class Profile extends Component {
       );
     } else {
       profilePageContent = (
-        <ProfileHeader profile={profile} />
+        <div>
+          <ProfileHeader profile={profile} />
+          <ProfileAbout profile={profile} />
+          <ProfileExp profile={profile} />
+        </div>
       )
     }
 

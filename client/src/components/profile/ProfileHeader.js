@@ -6,12 +6,13 @@ class ProfileHeader extends Component {
     const profile = this.props.profile;
     return (
       <div className="row justify-content-center">
-        <div className="col-md-10">
+        <div className="col-md-12">
           <div className="card text-white bg-info">
             <div className="card-body text-center">
-              <img src={profile.user.avatar} className="rounded-circle mx-auto" />
+              <img src={profile.user.avatar} className="rounded-circle mx-auto" alt={profile.user.name} />
               <h2 className="mt-2">{profile.user.name}</h2>
               <p className="lead">{profile.status} {!isEmpty(profile.company) && `at ${profile.company}`}</p>
+              {!isEmpty(profile.location) && <p className="lead mt-2">{profile.location}</p>}
               <p>
                 {isEmpty(profile.website) ? null :
                   (
