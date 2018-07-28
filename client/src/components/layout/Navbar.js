@@ -44,6 +44,12 @@ class Navbar extends Component {
 	    </ul>
 		);
 
+		const postLink = (
+			<li className="nav-item">
+				<Link className="nav-link" to="/posts">Posts</Link>
+			</li>
+		);
+
 		return (
 			<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
 			  <Link className="navbar-brand" to="/">DEVCONNECT</Link>
@@ -56,6 +62,7 @@ class Navbar extends Component {
 			      <li className="nav-item">
 			        <Link className="nav-link" to="/profiles">Developers</Link>
 			      </li>
+						{isAuthenticated && postLink}
 			    </ul>
 			    {isAuthenticated ? authLinks : guestLinks}
 			  </div>
