@@ -5,6 +5,7 @@ import {getProfileByHandle} from '../../actions/profileAction';
 import ProfileHeader from './ProfileHeader';
 import ProfileAbout from './ProfileAbout';
 import ProfileExp from './ProfileExp';
+import ProfileGithub from './ProfileGithub';
 
 class Profile extends Component {
 
@@ -27,6 +28,7 @@ class Profile extends Component {
           <ProfileHeader profile={profile} />
           <ProfileAbout profile={profile} />
           <ProfileExp profile={profile} />
+          <ProfileGithub profile={profile} />
         </div>
       )
     }
