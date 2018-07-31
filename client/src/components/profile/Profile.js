@@ -15,6 +15,12 @@ class Profile extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.profile.profile === null && nextProps.profile.loading) {
+      this.props.history.push('/profiles');
+    }
+  }
+
   render() {
     const {profile, loading} = this.props.profile;
     let profilePageContent;

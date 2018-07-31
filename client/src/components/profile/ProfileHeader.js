@@ -24,7 +24,7 @@ class ProfileHeader extends Component {
                 {isEmpty(profile.github) ? null :
                   (
                     <span className="mr-3">
-                      <a href={profile.github} className="text-white" target="_blank"><i className="fab fa-github fa-2x"></i></a>
+                      <a href={`https://github.com/${profile.github}`} className="text-white" target="_blank"><i className="fab fa-github fa-2x"></i></a>
                     </span>
                   )
                 }

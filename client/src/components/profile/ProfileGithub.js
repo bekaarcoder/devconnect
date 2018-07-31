@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import isEmpty from '../../validations/is-empty';
-import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class ProfileGithub extends Component {
