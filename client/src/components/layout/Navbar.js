@@ -46,7 +46,7 @@ class Navbar extends Component {
 
 		const postLink = (
 			<li className="nav-item">
-				<Link className="nav-link" to="/posts">All Posts from Developers</Link>
+				<Link className="nav-link" to="/posts">Posts</Link>
 			</li>
 		);
 
