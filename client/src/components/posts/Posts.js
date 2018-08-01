@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux';
 import { withRouter } from '../../../node_modules/react-router-dom';
-import PropTypes from 'prop-types';
 import PostForm from './PostForm';
 import PostFeed from './PostFeed';
 

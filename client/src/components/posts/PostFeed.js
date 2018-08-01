@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {getPosts} from '../../actions/postAction';
+import PostFeedItem from './PostFeedItem';
 
 class PostFeed extends Component {
   componentDidMount() {
@@ -14,14 +15,21 @@ class PostFeed extends Component {
       <div className="row mt-4">
         <div className="col-md-12">
           <h2 className="lead mt-4">Post Feeds</h2>
-          {posts.map(post => (
-            <p>{post.text}</p>
-          ))}
+          <div className="row">
+            {posts.map(post => (
+              <PostFeedItem key={post._id} post={post} />
+            ))}
+          </div>
         </div>
       </div>
     )
   }
 }
+
+PostFeed.propTypes = {
+  post: PropTypes.object.isRequired,
+  getPosts: PropTypes.func.isRequired
+};
 
 const mapStateToProps = (state) => ({
   post: state.post

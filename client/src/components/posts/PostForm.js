@@ -65,7 +65,7 @@ class PostForm extends Component {
                   error={errors.text}
                   autoComplete="nope"
                 />
-                <input type="submit" className="btn btn-danger" value="Create Post" />
+                <input type="submit" className="btn btn-success" value="Create Post" />
               </form>
             </div>
           </div>
