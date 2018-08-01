@@ -1,4 +1,4 @@
-import {ADD_POST, GET_ERRORS, GET_POSTS} from './types';
+import {ADD_POST, GET_ERRORS, GET_POSTS, DELETE_POST} from './types';
 import axios from 'axios';
 
 // add post
@@ -25,4 +25,19 @@ export const getPosts = () => dispatch => {
       type: GET_ERRORS,
       payload: err.response.data
     }));
+}
+
+// delete post
+export const deletePost = (id) => dispatch => {
+  if(window.confirm("Are you sure to delete this post?")) {
+    axios.delete(`/api/posts/${id}`, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+      .then(res => dispatch({
+        type: DELETE_POST,
+        payload: id
+      }))
+      .catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+  }
 }

@@ -1,7 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
+import {deletePost} from '../../actions/postAction';
+import PropTypes from 'prop-types';
 
 class PostFeedItem extends Component {
+  onClick(id) {
+    this.props.deletePost(id);
+  }
+
   render() {
     const {post} = this.props;
     const {user} = this.props.auth;
@@ -19,7 +25,7 @@ class PostFeedItem extends Component {
                   <button className="btn btn-info mr-2"><i className="fas fa-thumbs-up"></i> {post.likes.length}</button>
                   <button className="btn btn-info mr-2">Comments</button>
                   {user.id === post.user && (
-                    <button type="button" className="btn btn-danger">Delete</button>
+                    <button type="button" className="btn btn-danger" onClick={this.onClick.bind(this, post._id)}>Delete</button>
                   )}
                 </div>
               </div>
@@ -31,8 +37,13 @@ class PostFeedItem extends Component {
   }
 }
 
+PostFeedItem.propTypes = {
+  auth: PropTypes.object.isRequired,
+  deletePost: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 });
 
-export default connect(mapStateToProps, {})(PostFeedItem);
+export default connect(mapStateToProps, {deletePost})(PostFeedItem);
