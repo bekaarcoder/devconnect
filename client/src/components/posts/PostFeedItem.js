@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {deletePost, likePost} from '../../actions/postAction';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 class PostFeedItem extends Component {
   onClick(id) {
@@ -27,7 +28,7 @@ class PostFeedItem extends Component {
                 <p>{post.text}</p>
                 <div>
                   <button className="btn btn-info mr-2" onClick={this.likeClick.bind(this, post._id)}><i className="fas fa-thumbs-up"></i> {post.likes.length}</button>
-                  <button className="btn btn-info mr-2">Comments</button>
+                  <Link to={`/post/${post._id}`} className="btn btn-info mr-2">Comments</Link>
                   {user.id === post.user && (
                     <button type="button" className="btn btn-danger" onClick={this.onClick.bind(this, post._id)}>Delete</button>
                   )}

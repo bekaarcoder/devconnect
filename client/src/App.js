@@ -20,6 +20,7 @@ import AddEducation from './components/add-learning/AddEducation';
 import Profiles from './components/developers/Profiles';
 import Profile from './components/profile/Profile';
 import Posts from './components/posts/Posts';
+import Post from './components/post/Post';
 import {logoutUser} from './actions/authAction';
 import {clearProfile} from './actions/profileAction';
 import './App.css';
@@ -73,6 +74,9 @@ class App extends Component {
               </Switch>
               <Switch>
                 <PrivateRoute path="/posts" component={Posts} />
+              </Switch>
+              <Switch>
+                <PrivateRoute path="/post/:post_id" component={Post} />
               </Switch>
             </div>
           </div>
