@@ -1,4 +1,4 @@
-import {ADD_POST, GET_POSTS, DELETE_POST} from '../actions/types';
+import {ADD_POST, GET_POSTS, DELETE_POST, LIKE_POST} from '../actions/types';
 
 const initialState = {
   posts: [],
@@ -22,6 +22,12 @@ export default function(state = initialState, action) {
       return {
         ...state,
         posts: state.posts.filter(post => post._id !== action.payload)
+      }
+    case LIKE_POST:
+      state.posts.splice(state.posts.map(post => post._id.toString()).indexOf(action.payload._id.toString()), 1, action.payload);
+      return {
+        ...state,
+        posts: state.posts 
       }
     default:
       return state;

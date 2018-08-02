@@ -32,8 +32,7 @@ class PostForm extends Component {
       name: user.name,
       avatar: user.avatar
     };
-    const submit = this.props.addPost(newPost);
-    console.log(submit);
+    this.props.addPost(newPost);
     this.setState({
       text: '',
       errors: {}

@@ -1,4 +1,4 @@
-import {ADD_POST, GET_ERRORS, GET_POSTS, DELETE_POST} from './types';
+import {ADD_POST, GET_ERRORS, GET_POSTS, DELETE_POST, LIKE_POST} from './types';
 import axios from 'axios';
 
 // add post
@@ -40,4 +40,17 @@ export const deletePost = (id) => dispatch => {
         payload: err.response.data
       }));
   }
+}
+
+// like and unlike post
+export const likePost = (id) => dispatch => {
+  axios.post(`/api/posts/like/${id}`, null, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+    .then(res => dispatch({
+      type: LIKE_POST,
+      payload: res.data
+    }))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
 }
