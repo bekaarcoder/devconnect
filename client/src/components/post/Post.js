@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom';
 import {displayPost} from '../../actions/postAction';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import CommentForm from './CommentForm';
 
 class Post extends Component {
   componentDidMount() {
@@ -34,6 +35,7 @@ class Post extends Component {
               </div>
             </div>
           </div>
+          <CommentForm post={post} />
         </div>
       </div>
     )

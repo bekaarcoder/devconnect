@@ -67,3 +67,16 @@ export const displayPost = (id) => dispatch => {
       payload: err.response.data
     }));
 }
+
+// add comment to post
+export const addComment = (commentData, id) => dispatch => {
+  axios.post(`/api/posts/comment/${id}`, commentData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+    .then(res => dispatch({
+      type: GET_POST,
+      payload: res.data
+    }))
+    .catch(err => dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    }));
+}
