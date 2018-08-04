@@ -5,6 +5,7 @@ import {displayPost} from '../../actions/postAction';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import CommentForm from './CommentForm';
+import CommentFeed from './CommentFeed';
 
 class Post extends Component {
   componentDidMount() {
@@ -36,6 +37,7 @@ class Post extends Component {
             </div>
           </div>
           <CommentForm post={post} />
+          <CommentFeed postId={post._id} comments={post.comments} />
         </div>
       </div>
     )

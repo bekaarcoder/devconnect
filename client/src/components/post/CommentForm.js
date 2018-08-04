@@ -39,6 +39,9 @@ class CommentForm extends Component {
       avatar: user.avatar
     };
     this.props.addComment(newComment, this.props.post._id);
+    this.setState({
+      text: ''
+    });
   }
 
   render() {
@@ -59,7 +62,7 @@ class CommentForm extends Component {
                   error={errors.text}
                   autoComplete="nope"
                 />
-                <input type="submit" className="btn btn-success" value="Post Comment" />
+                <input type="submit" className="btn btn-success btn-sm" value="Post Comment" />
               </form>
             </div>
           </div>
