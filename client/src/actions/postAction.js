@@ -80,3 +80,18 @@ export const addComment = (commentData, id) => dispatch => {
       payload: err.response.data
     }));
 }
+
+// delete comment
+export const deleteComment = (post_id, comment_id) => dispatch => {
+  if(window.confirm("Are you sure you want to delete thic comment?")) {
+    axios.delete(`/api/posts/comment/${post_id}/${comment_id}`, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
+      .then(res => dispatch({
+        type: GET_POST,
+        payload: res.data
+      }))
+      .catch(err => dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      }));
+  }
+}

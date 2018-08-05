@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
+import {deleteComment} from '../../actions/postAction';
+import PropTypes from 'prop-types';
 
 class CommentItem extends Component {
+  onClickDelete(post_id, comment_id) {
+    this.props.deleteComment(post_id, comment_id);
+  }
+
   render() {
     const {postId, comment} = this.props;
     const {user} = this.props.auth;
@@ -25,7 +31,7 @@ class CommentItem extends Component {
                   </p>
                   <p className="text-secondary">{comment.text}</p>
                   {comment.user === user.id && (
-                    <a href="#" className="text-danger"><small>Delete</small></a>
+                    <a style={{cursor: "pointer"}} className="text-danger" onClick={this.onClickDelete.bind(this, postId, comment._id)}><small>Delete</small></a>
                   )}
                 </div>
               </div>
@@ -37,8 +43,13 @@ class CommentItem extends Component {
   }
 }
 
+CommentItem.propTypes = {
+  auth: PropTypes.object.isRequired,
+  deleteComment: PropTypes.func.isRequired
+};
+
 const mapStateToProps = (state) => ({
   auth: state.auth
 });
 
-export default connect(mapStateToProps, {})(CommentItem);
+export default connect(mapStateToProps, {deleteComment})(CommentItem);

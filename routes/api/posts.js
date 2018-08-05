@@ -136,7 +136,7 @@ router.delete('/comment/:id/:comment_id', passport.authenticate('jwt', {session:
 					res.status(404).json({err: "No comment to delete"});
 				}
 			}
-			res.status(404).json({err: "No comment to delete"});
+			// res.status(404).json({err: "No comment to delete"});
 		}).catch(err => res.status(404).json({err: "No posts found"}));
 });
 
