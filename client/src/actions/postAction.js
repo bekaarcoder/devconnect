@@ -1,8 +1,9 @@
-import {ADD_POST, GET_ERRORS, GET_POSTS, DELETE_POST, LIKE_POST, GET_POST} from './types';
+import {ADD_POST, GET_ERRORS, GET_POSTS, DELETE_POST, LIKE_POST, GET_POST, CLEAR_ERRORS} from './types';
 import axios from 'axios';
 
 // add post
 export const addPost = (postData) => dispatch => {
+  dispatch(clearErrors());
   axios.post('/api/posts', postData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
     .then(res => dispatch({
       type: ADD_POST,
@@ -70,6 +71,7 @@ export const displayPost = (id) => dispatch => {
 
 // add comment to post
 export const addComment = (commentData, id) => dispatch => {
+  dispatch(clearErrors());
   axios.post(`/api/posts/comment/${id}`, commentData, {headers: {"Authorization": localStorage.getItem('jwtToken')}})
     .then(res => dispatch({
       type: GET_POST,
@@ -94,4 +96,10 @@ export const deleteComment = (post_id, comment_id) => dispatch => {
         payload: err.response.data
       }));
   }
+}
+
+export const clearErrors = () => {
+  return {
+    type: CLEAR_ERRORS
+  };
 }
