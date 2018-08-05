@@ -8,9 +8,8 @@ class CommentFeed extends Component {
     return (
       <div className="row mt-2">
         <div className="col-md-12">
-          <h2 className="lead">Comments</h2>
-          {comments === undefined ? "No Comments" : comments.map(comment => 
-            <CommentItem comment={comment} postId={postId} />
+          {comments !== undefined && comments.map(comment => 
+            <CommentItem comment={comment} postId={postId} key={comment._id}/>
           )}
         </div>
       </div>

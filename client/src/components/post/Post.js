@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Moment from 'react-moment';
 import CommentForm from './CommentForm';
 import CommentFeed from './CommentFeed';
+import isEmpty from '../../validations/is-empty';
 
 class Post extends Component {
   componentDidMount() {
@@ -17,7 +18,7 @@ class Post extends Component {
   render() {
     const {post} = this.props.post;
     return (
-      <div className="row mt-4">
+      <div className="row mt-4 mb-4">
         <div className="col-md-12">
           <h2>Post</h2>
           <div className="row mt-4">
@@ -37,7 +38,11 @@ class Post extends Component {
             </div>
           </div>
           <CommentForm post={post} />
-          <CommentFeed postId={post._id} comments={post.comments} />
+          <h2 className="lead mt-4">Comments</h2>
+          {isEmpty(post.comments) ?
+            <p className="text-muted">No Comments</p> :
+            <CommentFeed postId={post._id} comments={post.comments} />
+          }
         </div>
       </div>
     )

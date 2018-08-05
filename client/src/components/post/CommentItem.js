@@ -5,6 +5,7 @@ import Moment from 'react-moment';
 class CommentItem extends Component {
   render() {
     const {postId, comment} = this.props;
+    const {user} = this.props.auth;
     return (
       <div className="row mt-2">
         <div className="col-md-12">
@@ -23,6 +24,9 @@ class CommentItem extends Component {
                     </span>
                   </p>
                   <p className="text-secondary">{comment.text}</p>
+                  {comment.user === user.id && (
+                    <a href="#" className="text-danger"><small>Delete</small></a>
+                  )}
                 </div>
               </div>
             </div>
@@ -33,4 +37,8 @@ class CommentItem extends Component {
   }
 }
 
-export default connect(null)(CommentItem);
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps, {})(CommentItem);
