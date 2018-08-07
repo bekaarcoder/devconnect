@@ -15,7 +15,7 @@ class ProfileExp extends Component {
       experienceContent = (
         <ul className="list-group">
           {profile.experience.map(exp => (
-            <li className="list-group-item">
+            <li className="list-group-item" key={exp._id}>
               <h4>{exp.company}</h4>
               <p>
                 <Moment format="Do MMM, YYYY">{exp.from}</Moment>
@@ -40,7 +40,7 @@ class ProfileExp extends Component {
       educationContent = (
         <ul className="list-group">
           {profile.education.map(edu => (
-            <li className="list-group-item">
+            <li className="list-group-item" key={edu._id}>
               <h4>{edu.title}</h4>
               <p>
                 <Moment format="Do MMM, YYYY">{edu.from}</Moment>

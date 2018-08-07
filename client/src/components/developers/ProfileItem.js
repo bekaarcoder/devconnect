@@ -7,7 +7,7 @@ class ProfileItem extends Component {
   render() {
     const {profile} = this.props;
     return (
-      <div className="col-md-5 col-sm-12">
+      <div className="col-md-6 col-sm-12 mb-3">
         <div className="card">
           <div className="card-body">
             <div className="row align-items-center">

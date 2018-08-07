@@ -25,13 +25,13 @@ class Profiles extends Component {
     }
     return (
       <div>
-        <div className="row mt-4">
-          <div className="col-md-12">
+        <div className="row justify-content-center mt-4">
+          <div className="col-md-10">
             <h2 className="text-center">Developers</h2>
             <p className="text-center lead text-muted">Browse all developers and connect with them</p>
           </div>
         </div>
-        <div className="row justify-content-around mt-5">
+        <div className="row mt-5">
           {profilesContent}
         </div>
       </div>

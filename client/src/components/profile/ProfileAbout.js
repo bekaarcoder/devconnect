@@ -15,8 +15,8 @@ class ProfileAbout extends Component {
               <hr />
               <h3>Skills</h3>
               <p>
-                {profile.skills.map(skill => (
-                  <span className="badge badge-success badge-pill lead mr-2">{skill}</span>
+                {profile.skills.map((skill, index) => (
+                  <span className="badge badge-success badge-pill lead mr-2" key={index}>{skill}</span>
                 ))}
               </p>
             </div>

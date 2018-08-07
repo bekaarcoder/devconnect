@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import isEmpty from '../../validations/is-empty';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 class ProfileGithub extends Component {
   constructor() {
@@ -22,11 +23,16 @@ class ProfileGithub extends Component {
     fetch(`https://api.github.com/users/${github}/repos?per_page=${count}&sort=${sort}&client_id=${clientID}&client_secret=${clientSecret}`)
       .then(res => res.json())
       .then(data => {
-        this.setState({
+        !this.isCancelled && this.setState({
           repos: data
-        })
+        });
+        // console.log(data);
       })
       .catch(err => console.log(err));
+  }
+
+  componentWillUnmount() {
+    this.isCancelled = true;
   }
 
 
@@ -41,8 +47,8 @@ class ProfileGithub extends Component {
     } else {
       content = (
         <ul className="list-group">
-          {repos.map(repo => (
-            <li className="list-group-item d-flex justify-content-between">
+          {repos.message === undefined && repos.map(repo => (
+            <li className="list-group-item d-flex justify-content-between" key={repo.id}>
               <span>
                 <h3 className="lead">
                   <a href={repo.html_url} className="text-info" target="_blank">{repo.name}</a>
@@ -75,7 +81,7 @@ class ProfileGithub extends Component {
 }
 
 ProfileGithub.propTypes = {
-  profile: PropTypes.string.isRequired
+  profile: PropTypes.object.isRequired
 }
 
-export default ProfileGithub;
+export default connect(null)(ProfileGithub);
