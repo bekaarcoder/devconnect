@@ -1,11 +1,11 @@
 # Devconnect
 
-    Developers community app created using MERN stack.
+Developers community app created using MERN stack.
 
-    - User can create there developer's profile and portfolio and can connect with others developers.
-    - User can view profiles of other developers.
-    - User can view the latest github repos of other developers.
-    - User can create posts and like and comment on other posts.
+- User can create there developer's profile and portfolio and can connect with others developers.
+- User can view profiles of other developers.
+- User can view the latest github repos of other developers.
+- User can create posts and like and comment on other posts.
 
 **Deploying app to Heroku**
 
